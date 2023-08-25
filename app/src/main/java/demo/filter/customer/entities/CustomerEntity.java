@@ -1,15 +1,16 @@
-package demo.filter.customer;
+package demo.filter.customer.entities;
 
+import com.alibaba.fastjson.JSON;
 import com.password4j.Hash;
 import com.password4j.Password;
-import jakarta.persistence.*;
-import org.apache.tomcat.util.json.JSONParser;
-import org.springframework.boot.json.JsonParser;
+import demo.filter.customer.enums.Role;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import com.alibaba.fastjson.JSON;
 
 @Entity
 public class CustomerEntity {
@@ -64,31 +65,31 @@ public class CustomerEntity {
         return Password.check(password, this.password).withBcrypt();
     }
 
-    private List<String> getRolesJSON() {
-        List<String> res = JSON.parseArray(roles, String.class);
+    private List<Role> getRolesJSON() {
+        List<Role> res = JSON.parseArray(roles, Role.class);
         if (res == null) {
             return new ArrayList<>();
         }
         return res;
     }
 
-    private void setRolesJSON(List<String> roles) {
-        this.roles = JSON.toJSONString(roles);
+    private void setRolesJSON(List<Role> roles) {
+        this.roles = JSON.toJSONString(Role.toStringList(roles));
     }
 
-    public void addRole(String role) {
-        List<String> roles = getRolesJSON();
+    public void addRole(Role role) {
+        List<Role> roles = getRolesJSON();
         roles.add(role);
         setRolesJSON(roles);
     }
 
-    public void removeRole(String role) {
-        List<String> roles = getRolesJSON();
+    public void removeRole(Role role) {
+        List<Role> roles = getRolesJSON();
         roles.remove(role);
         setRolesJSON(roles);
     }
 
-    public List<String> getRoles() {
+    public List<Role> getRoles() {
         return getRolesJSON();
     }
 }

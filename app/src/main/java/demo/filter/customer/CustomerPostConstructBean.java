@@ -1,5 +1,7 @@
 package demo.filter.customer;
 
+import demo.filter.customer.entities.CustomerEntity;
+import demo.filter.customer.enums.Role;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,7 @@ public class CustomerPostConstructBean {
             n.setName("admin");
             n.setEmail("admin@localhost");
             n.setPassword("admin");
-            n.addRole("SUPER_ADMIN");
+            n.addRole(Role.SUPER_ADMIN);
             customerRepository.save(n);
         }
     }

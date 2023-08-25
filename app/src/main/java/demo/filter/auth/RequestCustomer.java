@@ -42,4 +42,8 @@ public class RequestCustomer {
     public void throwMissingRoleException(String role) {
         throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Require role: " + role);
     }
+
+    public Long getId() {
+        return id;
+    }
 }

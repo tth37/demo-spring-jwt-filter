@@ -2,6 +2,7 @@ package demo.filter.auth;
 
 
 import com.auth0.jwt.JWT;
+import demo.filter.customer.enums.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +21,10 @@ public class JwtUtils {
     @Value("${jwt.secret}")
     private String secret;
 
-    public String generateJwtToken(Long id, List<String> roles) {
+    public String generateJwtToken(Long id, List<Role> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", id);
-        claims.put("roles", roles);
+        claims.put("roles", Role.toStringList(roles));
         return JWT.create()
                 .withSubject(id.toString())
                 .withIssuedAt(new Date(System.currentTimeMillis()))
@@ -32,6 +33,7 @@ public class JwtUtils {
                 .sign(HMAC512(secret.getBytes()));
     }
 
+    @SuppressWarnings("unchecked")
     public RequestCustomer parseJwtToken(String token) {
         Map<String, Object> claims = JWT.require(HMAC512(secret.getBytes()))
                 .build()

@@ -1,15 +1,12 @@
 package demo.filter.auth;
 
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
@@ -20,6 +17,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+        System.out.println("Header: " + request.getHeader("Authorization"));
         try {
             String token = request.getHeader("Authorization");
             token = token.replace("Bearer ", "");

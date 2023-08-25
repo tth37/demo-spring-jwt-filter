@@ -13,6 +13,7 @@ plugins {
     id 'org.springframework.boot' version '3.1.2'
     id 'io.spring.dependency-management' version '1.1.2'
 
+//    id "org.springdoc.openapi-gradle-plugin" version "1.7.0"
 }
 
 repositories {
@@ -36,6 +37,9 @@ dependencies {
     implementation 'com.auth0:java-jwt:4.4.0'
     implementation 'com.alibaba:fastjson:2.0.28'
     implementation 'com.password4j:password4j:1.7.2'
+
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
