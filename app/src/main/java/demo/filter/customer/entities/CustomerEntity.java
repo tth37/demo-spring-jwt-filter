@@ -3,6 +3,7 @@ package demo.filter.customer.entities;
 import com.alibaba.fastjson.JSON;
 import com.password4j.Hash;
 import com.password4j.Password;
+import demo.filter.customer.dto.CustomerDto;
 import demo.filter.customer.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +32,9 @@ public class CustomerEntity {
      * JSON format, String array of roles
      */
     private String roles;
+
+    public CustomerEntity() {
+    }
 
     public Long getId() {
         return id;
@@ -91,5 +95,14 @@ public class CustomerEntity {
 
     public List<Role> getRoles() {
         return getRolesJSON();
+    }
+
+    public CustomerDto toDto() {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.id = this.id;
+        customerDto.name = this.name;
+        customerDto.email = this.email;
+        customerDto.roles = this.getRoles();
+        return customerDto;
     }
 }
